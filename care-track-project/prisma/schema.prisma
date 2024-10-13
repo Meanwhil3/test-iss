@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+// schema.prisma
+model User {
+  id         Int        @id @default(autoincrement())
+  username   String     @unique
+  email      String     @unique
+  password   String
+  role       String
+  patient    Patient?
+  staff      Staff?
+}
+
+model Patient {
+  id                Int                  @id @default(autoincrement())
+  firstname         String?
+  lastname          String?
+  medicationAllocations MedicationAllocation[]
+  appointments      Appointment[]
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique // relation scalar field (used in the `@relation` attribute above)
+}
+
+model Staff {
+  id        Int        @id @default(autoincrement())
+  firstname         String
+  lastname          String
+  appointments Appointment[]
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique // relation scalar field (used in the `@relation` attribute above)
+  doctor_type String?
+  price Float?
+  description String?
+  specification String?
+  work String?
+}
+
+model MedicationAllocation { // จ่ายยา
+  id        Int      @id @default(autoincrement())
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  patientId Int
+  time_stamp DateTime @default(now())
+  notified     Boolean @default(false) // true when notification & false again when confirm notification
+  medicine Medicine[]
+  heart_rate Int
+  hemoglobin Int
+}
+
+model Medicine {
+  id        Int      @id @default(autoincrement())
+  medicine_name String
+  dosage      Int // ปริมาณ
+  period    Period[] @relation("MedicinePeriods")
+  medication_allocation  MedicationAllocation @relation(fields: [med_allocationId], references: [id])
+  med_allocationId Int
+}
+
+model Period {
+  id          Int      @id @default(autoincrement())
+  period_name String
+  time        DateTime
+  medicines   Medicine[] @relation("MedicinePeriods")
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  patientId Int
+  staff     Staff    @relation(fields: [staffId], references: [id])
+  staffId   Int
+  appointmentTime DateTime
+}
