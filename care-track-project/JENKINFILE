@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Clone repository
-                    git 'https://github.com/Chinjuku/CareTrack'
+                    git 'https://github.com/Meanwhil3/test-iss'
                 }
                 // Build Docker images
                 sh 'npm run build'
