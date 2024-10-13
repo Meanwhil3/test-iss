@@ -15,5 +15,5 @@ RUN npm run build
 # เปิดพอร์ต 3000 เพื่อให้สามารถเข้าถึงแอปได้จากภายนอก
 EXPOSE 3000
 
-# คำสั่งเพื่อรัน Next.js server ในโหมดพัฒนา
+# คำสั่งเพื่อรัน Next.js server ในโหมดพัฒนา kuy na
 CMD ["npm", "run", "start"]
