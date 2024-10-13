@@ -16,4 +16,5 @@ RUN npm run build
 EXPOSE 3000
 
 # คำสั่งเพื่อรัน Next.js server ในโหมดพัฒนา
+# do some test
 CMD ["npm", "run", "start"]
