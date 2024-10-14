@@ -25,10 +25,13 @@ RUN npm run build
 # Stage 2: Production image with only necessary files
 FROM node:20-alpine AS runner
 
+# Install OpenSSL 3.0.x in the production image
+RUN apk add --no-cache openssl3
+
 # Set working directory
 WORKDIR /app
 
-# Install only production dependenciesa
+# Install only production dependencies
 COPY --from=builder /app/package*.json ./
 RUN npm install --production
 
@@ -39,7 +42,7 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/node_modules ./node_modules
 
-# Expose the port Next.js runs onasdasd
+# Expose the port Next.js runs on
 EXPOSE 3000
 
 # Start the Next.js app
