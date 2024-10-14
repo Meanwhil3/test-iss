@@ -37,7 +37,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public/
 COPY --from=builder /app/prisma ./prisma/
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
-COPY --from=builder /app/next.config.js ./ 
+COPY --from=builder /app/next.config.mjs ./ 
 
 # Expose the port Next.js runs on
 EXPOSE 3000
