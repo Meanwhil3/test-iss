@@ -92,18 +92,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Clean up workspace after build
-            cleanWs()
-        }
-        success {
-            // Notify when build succeeds
-            echo 'Build and Deploy succeeded!'
-        }
-        failure {
-            // Notify when build fails
-            echo 'Build or Deploy failed!'
-        }
-    }
 }
