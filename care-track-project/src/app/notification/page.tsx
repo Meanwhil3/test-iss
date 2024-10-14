@@ -5,7 +5,7 @@ import { viewMedicines } from "@/server/medication";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserProvider";
 import { MedicationAllocation, QueryMedicine} from "@/types/models"; 
-import { Period } from "@prisma/client";
+import { Period } from "@/types/models";
 
 export default function NotificationPage() {
   const [medicine_allos, setMeds] = useState<
