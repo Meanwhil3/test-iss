@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Copy the .env file from the host machine into the container
+# Assuming the .env file is in the root directory of your project
+COPY /home/g65070248/CareTrack/care-track-project/.env .env
+
 # Build the Next.js app
 RUN npm run build
 
@@ -30,6 +34,9 @@ RUN npm install --production
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
+
+# Copy the .env file into the production stage
+COPY --from=builder /app/.env .env
 
 # Expose the port Next.js runs on
 EXPOSE 3000

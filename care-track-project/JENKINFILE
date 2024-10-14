@@ -13,16 +13,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Build') {
-            steps {
-                dir('care-track-project') {  // Navigate to your project folder
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-            }
-        }
-
+        
         stage('Deploy') {
             steps {
                 dir('care-track-project') {  // Ensure Docker-compose is executed in the right directory
