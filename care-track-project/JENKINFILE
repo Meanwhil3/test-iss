@@ -2,13 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
                 script {
                     // Clone repository
                     git 'https://github.com/Meanwhil3/test-iss'
                 }
-                // Build Docker images
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Run tests
                 sh 'npm run build'
             }
         }
