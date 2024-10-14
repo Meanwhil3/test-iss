@@ -5,8 +5,12 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Clone repository
-                    git 'https://github.com/Meanwhil3/test-iss'
+                    // Checkout code from Git repository
+                    checkout([$class: 'GitSCM',
+                              branches: [[name: "*/main"]],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions: [],
+                              userRemoteConfigs: [[credentialsId: 'github', url: "https://github.com/Meanwhil3/test-iss.git"]]])
                 }
             }
         }
