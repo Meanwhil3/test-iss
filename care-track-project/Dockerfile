@@ -10,12 +10,14 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Copy the Prisma schema file (to generate client)
+COPY prisma ./prisma/
+
+# Generate Prisma client
+RUN npx prisma generate
+
 # Copy the rest of the application code
 COPY . .
-
-# Copy the .env file from the host machine into the container
-# Assuming the .env file is in the root directory of your project
-# COPY /home/g65070248/CareTrack/care-track-project/.env .env
 
 # Build the Next.js app
 RUN npm run build
@@ -33,10 +35,9 @@ RUN npm install --production
 # Copy the build files from the builder stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/next.config.js ./
-
-# Copy the .env file into the production stage
-COPY --from=builder /app/.env .env
 
 # Expose the port Next.js runs on
 EXPOSE 3000
