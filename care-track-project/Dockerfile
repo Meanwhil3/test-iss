@@ -32,12 +32,12 @@ WORKDIR /app
 COPY --from=builder /app/package*.json ./
 RUN npm install --production
 
-# Copy the build files from the builder stage
+# Copy build files, ensuring destination directories are correct
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public/
+COPY --from=builder /app/prisma ./prisma/
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
+COPY --from=builder /app/next.config.js ./ 
 
 # Expose the port Next.js runs on
 EXPOSE 3000
