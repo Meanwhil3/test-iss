@@ -39,20 +39,32 @@ export type Patient = {
     user: User;
   };
   
+  // export type Staff = {
+  //   id: number;
+  //   firstname: string;
+  //   lastname: string;
+  //   appointments: Appointment[];
+  //   userId: number;
+  //   user: User;
+  //   doctor_type: string | null;
+  //   price: number | null;
+  //   description: string | null;
+  //   specification: string | null;
+  //   work: string | null;
+  // };
+  
   export type Staff = {
     id: number;
     firstname: string;
     lastname: string;
-    appointments: Appointment[];
     userId: number;
-    user: User;
     doctor_type: string | null;
     price: number | null;
     description: string | null;
     specification: string | null;
     work: string | null;
-  };
-  
+};
+
   export type MedicationAllocation = {
     id: number;
     patientId: number;

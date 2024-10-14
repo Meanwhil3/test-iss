@@ -4,7 +4,7 @@ import {Link, Card, CardBody, CardFooter} from "@nextui-org/react";
 import Navbar from "@/components/navbar/navbar";  // นำเข้า NavBar ที่นี่
 import { useUser } from '@/context/UserProvider'
 import { useEffect, useState } from "react";
-import { Staff } from "@prisma/client";
+import { Staff } from "@/types/models";
 
 
 export default function HomePage() {
