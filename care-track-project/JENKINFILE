@@ -45,11 +45,6 @@
 pipeline {
     agent any
 
-    tools {
-        // Use the configured Node.js version
-        nodejs 'NodeJS 22.9.0'  // This should match the name you set in Global Tool Configuration
-    }
-
     stages {
         stage('Checkout') {
             steps {
