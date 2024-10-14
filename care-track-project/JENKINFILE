@@ -16,7 +16,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('app') {  // Navigate to the correct working directory
+                dir('care-track-project') {  // Navigate to your project folder
+                    sh 'npm install'
                     sh 'npm run build'
                 }
             }
@@ -24,7 +25,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                dir('app') {  // Ensure Docker-compose is executed in the right directory
+                dir('care-track-project') {  // Ensure Docker-compose is executed in the right directory
                     sh 'docker-compose up -d --build'
                 }
             }
