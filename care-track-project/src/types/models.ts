@@ -83,18 +83,17 @@ export type Patient = {
     time: Date;
   };
   
-  export type Appointment = {
-    id: number;
-    patientId: number;
-    patient: Patient;
-    staffId: number;
-    staff: Staff;
-    appointmentTime: Date;
-  };
   
   export type QueryMedicine = {
     id: number;
     medicine_name: string;
     dosage: number;
     period: Period[]
+  };
+
+  export type Appointment = {
+    id: number;
+    patientId: number;
+    staffId: number;
+    appointmentTime: Date;
   };

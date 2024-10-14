@@ -4,7 +4,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@/context/UserProvider";
 import { viewAppointments } from "@/server/appointment";
-import { Appointment } from "@prisma/client";
+import { Appointment } from "@/types/models";
 
 export default function ConsultPage() {
   const [selected] = React.useState("Upcomings");
