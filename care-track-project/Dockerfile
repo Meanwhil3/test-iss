@@ -28,7 +28,7 @@ FROM node:20-alpine AS runner
 # Set working directory
 WORKDIR /app
 
-# Install only production dependencies
+# Install only production dependenciesa
 COPY --from=builder /app/package*.json ./
 RUN npm install --production
 
@@ -39,7 +39,7 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma/
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/node_modules ./node_modules
 
-# Expose the port Next.js runs on
+# Expose the port Next.js runs onasdasd
 EXPOSE 3000
 
 # Start the Next.js app
