@@ -46,9 +46,9 @@ pipeline {
     agent any
 
     tools {
-        // Ensure the correct Node.js version is used
-        nodejs 'NodeJS 16.13+'  // Replace with the label you configured in Jenkins
-    }
+    nodejs 'NodeJS 20.0.0' // หรือชื่อที่คุณกำหนดใน Jenkins
+}
+
 
     stages {
         stage('Checkout') {
