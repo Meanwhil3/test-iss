@@ -5,7 +5,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout code from Git repository
                     checkout([$class: 'GitSCM',
                               branches: [[name: "*/main"]],
                               doGenerateSubmoduleConfigurations: false,
@@ -17,30 +16,29 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Run tests
-                sh 'npm run build'
+                dir('app') {  // Navigate to the correct working directory
+                    sh 'npm run build'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                // Run Docker containers
-                sh 'docker-compose up -d --build'
+                dir('app') {  // Ensure Docker-compose is executed in the right directory
+                    sh 'docker-compose up -d --build'
+                }
             }
         }
     }
 
     post {
         always {
-            // Clean up workspace after build
             cleanWs()
         }
         success {
-            // Notify when build succeeds
             echo 'Build and Deploy succeeded!'
         }
         failure {
-            // Notify when build fails
             echo 'Build or Deploy failed!'
         }
     }

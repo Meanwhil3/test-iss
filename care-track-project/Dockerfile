@@ -1,19 +1,38 @@
-# เลือก Base Image เป็น Node.js เวอร์ชัน 20
-FROM node:20
+# Stage 1: Build the Next.js app
+FROM node:20 AS builder
 
-# ตั้งค่า directory ของแอปใน container เป็น /app
+# Set working directory
 WORKDIR /app
 
-# คัดลอกไฟล์ package.json และ package-lock.json ไปยัง container
-COPY . /app/
+# Copy package.json and package-lock.json for caching dependencies
+COPY package*.json ./
 
-# ติดตั้ง dependencies (ขั้นตอนนี้จะถูก cache ถ้าไฟล์ package.json ไม่เปลี่ยน)
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
+COPY . .
+
+# Build the Next.js app
 RUN npm run build
 
-# เปิดพอร์ต 3000 เพื่อให้สามารถเข้าถึงแอปได้จากภายนอก
+# Stage 2: Production image with only necessary files
+FROM node:20-alpine AS runner
+
+# Set working directory
+WORKDIR /app
+
+# Install only production dependencies
+COPY --from=builder /app/package*.json ./
+RUN npm install --production
+
+# Copy the build files from the builder stage
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./
+
+# Expose the port Next.js runs on
 EXPOSE 3000
 
-# คำสั่งเพื่อรัน Next.js server ในโหมดพัฒนา
+# Start the Next.js app
 CMD ["npm", "run", "start"]
