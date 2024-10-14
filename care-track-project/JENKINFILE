@@ -13,7 +13,13 @@ pipeline {
                 }
             }
         }
-        
+
+        stage('Copy .env') {
+            steps {
+                sh 'cp /home/g65070248/CareTrack/care-track-project.env /var/lib/jenkins/workspace/test/care-track-project/.env'
+            }
+        }
+
         stage('Deploy') {
             steps {
                 dir('care-track-project') {  // Ensure Docker-compose is executed in the right directory
