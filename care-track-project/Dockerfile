@@ -15,7 +15,7 @@ COPY . .
 
 # Copy the .env file from the host machine into the container
 # Assuming the .env file is in the root directory of your project
-COPY /home/g65070248/CareTrack/care-track-project/.env .env
+# COPY /home/g65070248/CareTrack/care-track-project/.env .env
 
 # Build the Next.js app
 RUN npm run build
